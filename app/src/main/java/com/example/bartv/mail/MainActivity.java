@@ -166,18 +166,20 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onActivityResult(requestCode, resultCode, data);
         // checks if the requestCode equals 1
-        if(requestCode==1)
-        {
-            // Checks if the selected mail is already added
-            if(etEmail.getText().toString().contains(data.getStringExtra("EMAIL"))) {
-                Toast.makeText(this, "Email already added!", Toast.LENGTH_SHORT).show();
-            }
-            // Check for multiple emails and add email
-            else {
-                if (etEmail.getText().toString().trim().equals("")) {
-                    etEmail.setText(data.getStringExtra("EMAIL"));
-                } else {
-                    etEmail.setText(etEmail.getText().toString() + ", \n" + data.getStringExtra("EMAIL"));
+        if(requestCode==1) {
+            if (resultCode == RESULT_OK)
+            {
+                // Checks if the selected mail is already added
+                if (etEmail.getText().toString().contains(data.getStringExtra("EMAIL"))) {
+                    Toast.makeText(this, "Email already added!", Toast.LENGTH_SHORT).show();
+                }
+                // Check for multiple emails and add email
+                else {
+                    if (etEmail.getText().toString().trim().equals("")) {
+                        etEmail.setText(data.getStringExtra("EMAIL"));
+                    } else {
+                        etEmail.setText(etEmail.getText().toString() + ", \n" + data.getStringExtra("EMAIL"));
+                    }
                 }
             }
         }
