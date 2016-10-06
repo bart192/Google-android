@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Mail</string>
+    <string name="title_activity_student">StudentActivity</string>
+
+    <string-array name="image">
+        <item>Bart van Es</item>
+        <item>Bas Grave</item>
+        <item>Carlo Verver</item>
+        <item>Dylan Doornbos</item>
+        <item>Dylan Hofstra</item>
+        <item>Firdhan Yahya</item>
+        <item>Jake Zweers</item>
+        <item>James Morsink</item>
+        <item>Jordy Mengerink</item>
+        <item>Kelvin Cornelissens</item>
+        <item>Laurens Tel</item>
+        <item>Loek Gosen</item>
+        <item>Martijn Dekker</item>
+        <item>Robin Tatlici</item>
+        <item>Tim Bruntink</item>
+    </string-array>
+</resources>
