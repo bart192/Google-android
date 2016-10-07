@@ -123,6 +123,11 @@ public class MyAdapter extends RecyclerView.Adapter<Holder> {
                         else if(which == 1) {
                             Intent i= new Intent(c, StudentMapsActivity.class);
                             i.putExtra("ZIPCODE", dbProperties.get(pos).getZipcode().trim());
+                            i.putExtra("IMAGE", dbProperties.get(pos).getImage());
+                            i.putExtra("NAAM", dbProperties.get(pos).getName());
+                            i.putExtra("STUDENTNUMBER", dbProperties.get(pos).getStudentnumber());
+                            i.putExtra("KLAS", dbProperties.get(pos).getKlas());
+
                             c.startActivity(i);
                         }
                     }
