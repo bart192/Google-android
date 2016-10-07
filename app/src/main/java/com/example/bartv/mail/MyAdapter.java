@@ -2,14 +2,17 @@ package com.example.bartv.mail;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.bartv.mail.Database.ItemLongClickListener;
 import com.example.bartv.mail.Database.dbAdapter;
@@ -17,6 +20,8 @@ import com.example.bartv.mail.Database.dbProperties;
 import com.example.bartv.mail.Database.ItemClickListener;
 
 import java.util.ArrayList;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by bartv on 24-9-2016.
@@ -72,7 +77,7 @@ public class MyAdapter extends RecyclerView.Adapter<Holder> {
             public void onItemClick(View v, int pos) {
                 Intent intent= new Intent();
                 intent.putExtra("EMAIL", dbProperties.get(position).getEmail());
-                activity.setResult(1, intent);
+                activity.setResult(RESULT_OK, intent);
                 activity.finish();
             }
         });
@@ -81,16 +86,8 @@ public class MyAdapter extends RecyclerView.Adapter<Holder> {
         holder.setItemLongClickListener(new ItemLongClickListener() {
             @Override
             public void onItemLongClick(View v, int pos) {
-                Intent i= new Intent(c, EditActivity.class);
+                chooseDialog(pos,"Choose");
 
-                i.putExtra("ID", dbProperties.get(pos).getId());
-                i.putExtra("NAME", dbProperties.get(pos).getName());
-                i.putExtra("STUDENTNUMBER", dbProperties.get(pos).getStudentnumber());
-                i.putExtra("CLASS", dbProperties.get(pos).getKlas());
-                i.putExtra("EMAIL", dbProperties.get(pos).getEmail());
-                i.putExtra("IMAGE", dbProperties.get(pos).getImage());
-
-                c.startActivity(i);
             }
         });
     }
@@ -102,6 +99,34 @@ public class MyAdapter extends RecyclerView.Adapter<Holder> {
     @Override
     public int getItemCount() {
         return dbProperties.size();
+    }
+
+    public void chooseDialog(final int pos, String title) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle(title)
+                .setItems(R.array.chooseDialog, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which == 0) {
+                            Intent i= new Intent(c, EditActivity.class);
+
+                            i.putExtra("ID", dbProperties.get(pos).getId());
+                            i.putExtra("NAME", dbProperties.get(pos).getName());
+                            i.putExtra("STUDENTNUMBER", dbProperties.get(pos).getStudentnumber());
+                            i.putExtra("CLASS", dbProperties.get(pos).getKlas());
+                            i.putExtra("EMAIL", dbProperties.get(pos).getEmail());
+                            i.putExtra("IMAGE", dbProperties.get(pos).getImage());
+
+                            c.startActivity(i);
+                        }
+                        else if(which == 1) {
+                            Intent i= new Intent(c, StudentMapsActivity.class);
+
+                            c.startActivity(i);
+                        }
+                    }
+                });
+        AlertDialog a = builder.create();
+        a.show();
     }
 
 }
