@@ -53,7 +53,7 @@ public class dbAdapter {
     // Method to add a student to the database
     // ---------------------------------------------------------------------------------------------
 
-    public long add(String name, String studentnumber, String email, String image, String klas) {
+    public long add(String name, String studentnumber, String email, String image, String klas, String zipcode) {
         try {
             ContentValues cv = new ContentValues();
             cv.put(dbCreate.NAME, name);
@@ -61,6 +61,7 @@ public class dbAdapter {
             cv.put(dbCreate.EMAIL, email);
             cv.put(dbCreate.IMAGE, image);
             cv.put(dbCreate.KLAS, klas);
+            cv.put(dbCreate.ZIPCODE, zipcode);
 
             return db.insert(dbCreate.TB_NAME, dbCreate.ROW_ID, cv);
         } catch (SQLException e) {
@@ -74,7 +75,7 @@ public class dbAdapter {
     // ---------------------------------------------------------------------------------------------
 
     public Cursor getAllStudents() {
-        String[] columns = {dbCreate.ROW_ID, dbCreate.NAME, dbCreate.STUDENTNUMBER, dbCreate.EMAIL, dbCreate.IMAGE, dbCreate.KLAS};
+        String[] columns = {dbCreate.ROW_ID, dbCreate.NAME, dbCreate.STUDENTNUMBER, dbCreate.EMAIL, dbCreate.IMAGE, dbCreate.KLAS, dbCreate.ZIPCODE};
         return db.query(dbCreate.TB_NAME, columns, null, null, null, null, null);
     }
 
@@ -82,7 +83,7 @@ public class dbAdapter {
     // Method that updates a student
     // ---------------------------------------------------------------------------------------------
 
-    public long update(int id, String name, String studentnumber,String email, String image, String klas) {
+    public long update(int id, String name, String studentnumber,String email, String image, String klas, String zipcode) {
         try {
             ContentValues cv = new ContentValues();
             cv.put(dbCreate.NAME, name);
@@ -90,6 +91,7 @@ public class dbAdapter {
             cv.put(dbCreate.EMAIL, email);
             cv.put(dbCreate.IMAGE, image);
             cv.put(dbCreate.KLAS, klas);
+            cv.put(dbCreate.ZIPCODE, zipcode);
 
             return db.update(dbCreate.TB_NAME, cv, dbCreate.ROW_ID + " = ?", new String[]{String.valueOf(id)});
 

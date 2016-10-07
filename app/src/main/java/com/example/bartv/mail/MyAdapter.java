@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,12 +116,13 @@ public class MyAdapter extends RecyclerView.Adapter<Holder> {
                             i.putExtra("CLASS", dbProperties.get(pos).getKlas());
                             i.putExtra("EMAIL", dbProperties.get(pos).getEmail());
                             i.putExtra("IMAGE", dbProperties.get(pos).getImage());
+                            i.putExtra("ZIPCODE", dbProperties.get(pos).getZipcode());
 
                             c.startActivity(i);
                         }
                         else if(which == 1) {
                             Intent i= new Intent(c, StudentMapsActivity.class);
-
+                            i.putExtra("ZIPCODE", dbProperties.get(pos).getZipcode().trim());
                             c.startActivity(i);
                         }
                     }

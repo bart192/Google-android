@@ -1,7 +1,11 @@
 package com.example.bartv.mail;
 
+import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,10 +14,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.List;
+
 public class StudentMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
+    private  Address address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +43,27 @@ public class StudentMapsActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        Intent i = getIntent();
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker by "));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        final String zipCode = i.getStringExtra("ZIPCODE");
+
+        final Geocoder geocoder = new Geocoder(this);
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(zipCode, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                address = addresses.get(0);
+                mMap = googleMap;
+                LatLng street = new LatLng(address.getLatitude(),address.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(street).title("Marker by "));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(street));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(17), 2000, null);
+            } else {
+                // Display appropriate message when Geocoder services are not available
+                Toast.makeText(this, "Unable to geocode zipcode", Toast.LENGTH_LONG).show();
+            }
+        } catch (IOException e) {
+            // handle exception
+        }
+
     }
 }

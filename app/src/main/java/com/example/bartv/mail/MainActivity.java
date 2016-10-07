@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         etEmail.setFocusable(false);
         etEmail.setClickable(true);
         final int resultCode = 1;
+
         // The click listeners for the buttons
         btnStudent.setOnClickListener(new View.OnClickListener() {
             @Override

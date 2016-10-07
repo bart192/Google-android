@@ -110,6 +110,19 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imageSpinner" />
 
+            <TextView
+                android:text="Zipcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView5" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/etZipcode" />
+
             <Button
                 android:layout_height="match_parent"
                 android:text="Update"

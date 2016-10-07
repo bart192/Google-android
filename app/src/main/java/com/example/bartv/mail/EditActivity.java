@@ -26,7 +26,7 @@ import java.util.List;
 public class EditActivity extends AppCompatActivity {
 
     private Button btnUpdate, btnDelete;
-    private EditText etName, etStudentNumber, etKlas, etMail;
+    private EditText etName, etStudentNumber, etKlas, etMail, etZipcode;
     private Spinner spImage;
     private List<String> spinnerArray;
 
@@ -41,6 +41,7 @@ public class EditActivity extends AppCompatActivity {
         etStudentNumber = (EditText)findViewById(R.id.etStudentNumber);
         etKlas = (EditText)findViewById(R.id.etKlas);
         etMail = (EditText)findViewById(R.id.etEmail);
+        etZipcode = (EditText)findViewById(R.id.etZipcode);
         spImage = (Spinner)findViewById(R.id.imageSpinner);
 
         // Gets the extra's send by the intent
@@ -53,6 +54,7 @@ public class EditActivity extends AppCompatActivity {
         final String klas = i.getExtras().getString("CLASS");
         final String email = i.getExtras().getString("EMAIL");
         final String image = i.getExtras().getString("IMAGE");
+        final String zipcode = i.getExtras().getString("ZIPCODE");
 
         spinnerArray  =  new ArrayList(Arrays.asList(getResources().getStringArray(R.array.image)));
 
@@ -69,8 +71,8 @@ public class EditActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etName.getText().toString().trim().length() > 0|| etStudentNumber.getText().toString().trim().length() > 0 || etMail.getText().toString().trim().length() > 0 || etKlas.getText().toString().trim().length() > 0){
-                    update(id, etName.getText().toString(), etStudentNumber.getText().toString(), etMail.getText().toString(),spImage.getSelectedItem().toString().toLowerCase().replace(" ", "") ,  etKlas.getText().toString());
+                if(etName.getText().toString().trim().length() > 0|| etStudentNumber.getText().toString().trim().length() > 0 || etMail.getText().toString().trim().length() > 0 || etKlas.getText().toString().trim().length() > 0 || etZipcode.getText().toString().trim().length() > 0){
+                    update(id, etName.getText().toString(), etStudentNumber.getText().toString(), etMail.getText().toString(),spImage.getSelectedItem().toString().toLowerCase().replace(" ", "") ,  etKlas.getText().toString(), etZipcode.getText().toString());
                     retrieve();
                     returnToStudentActivity();
                 }
@@ -150,8 +152,9 @@ public class EditActivity extends AppCompatActivity {
             String email = c.getString(3);
             String image = c.getString(4);
             String klas = c.getString(5);
+            String zipcode = c.getString(6);
 
-            dbProperties properties1 = new dbProperties(id, name, studentnumber, email, image,  klas);
+            dbProperties properties1 = new dbProperties(id, name, studentnumber, email, image,  klas, zipcode);
 
             properties.add(properties1);
         }
@@ -190,10 +193,10 @@ public class EditActivity extends AppCompatActivity {
     // Method to update a student
     // ---------------------------------------------------------------------------------------------
 
-    private void update(int id, String name, String studentnumber, String klas, String mail, String image) {
+    private void update(int id, String name, String studentnumber, String klas, String mail, String image, String zipcode) {
         dbAdapter db = new dbAdapter(this);
         db.openDB();
-        long result = db.update(id, name, studentnumber, klas, mail, image);
+        long result = db.update(id, name, studentnumber, klas, mail, image, zipcode);
 
         if (result > 0) {
             etName.setText(name);

@@ -11,6 +11,7 @@ public class dbProperties {
     private String email;
     private String image;
     private String klas;
+    private String zipcode;
 
     public int getId() {
         return id;
@@ -44,6 +45,14 @@ public class dbProperties {
         this.klas = klas;
     }
 
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
     public String getImage() {
         return image;
     }
@@ -60,14 +69,13 @@ public class dbProperties {
          this.email = email;
     }
 
-    public dbProperties(int id, String name, String studentnumber,String email, String image, String klas) {
+    public dbProperties(int id, String name, String studentnumber, String email, String image, String klas, String zipcode) {
         this.id = id;
         this.name = name;
         this.studentnumber = studentnumber;
         this.email = email;
         this.image = image;
         this.klas = klas;
+        this.zipcode = zipcode;
     }
-
-
 }
